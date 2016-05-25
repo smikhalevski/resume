@@ -133,7 +133,85 @@ window.onload = function () {
   let svg = d3.select('#app')
     .append('svg')
     .attr('width', 700)
-    .attr('height', 0);
+    .attr('height', 4000);
+
+
+  const BEGIN_YEAR = 2003,
+        NEXT_YEAR = new Date().getFullYear() + 1,
+        YEAR_GAUGE_WIDTH = 40,
+        YEAR_LABEL_WIDTH = 20,
+        YEAR_AXIS_LENGTH = (NEXT_YEAR - BEGIN_YEAR) * (YEAR_GAUGE_WIDTH + YEAR_LABEL_WIDTH);
+
+  // Year band scale with padding.
+  function dateScale(date) {
+    let year = date.getFullYear(),
+        scale = d3.time.scale()
+            .rangeRound([0, YEAR_GAUGE_WIDTH])
+            .domain([new Date(year, 0), new Date(year + 1, 0)]);
+    return (year - BEGIN_YEAR) * (YEAR_GAUGE_WIDTH + YEAR_LABEL_WIDTH) + scale(date);
+  }
+
+  let axis = svg.append('g')
+      .attr('class', 'axis')
+      .attr('transform', `translate(200, 100)`);
+
+  let yearsRange = d3.range(NEXT_YEAR - BEGIN_YEAR - 2, 0, -1);
+
+  let axisYears = axis.selectAll('g.axis__year')
+      .data(yearsRange);
+
+  let axisYear = axisYears.enter()
+      .append('g')
+      .attr('class', 'axis__year')
+      .attr('transform', (d, i) => `translate(0, ${i * (YEAR_GAUGE_WIDTH + YEAR_LABEL_WIDTH)})`);
+  
+  axisYear.append('rect')
+      .attr('class', 'axis__year__gauge')
+      .attr('height', YEAR_GAUGE_WIDTH)
+      .attr('width', 2);
+
+  axisYear.append('text')
+      .attr('class', 'axis__year__label')
+      .attr('dominant-baseline', 'middle')
+      .attr('text-anchor', (d, i) => {
+        switch (i) {
+          case 0: return 'end';
+          case yearsRange.length: return 'begin';
+          default: return 'middle';
+        }
+      })
+      .attr('transform', (d, i) => {
+
+        return `translate(0, ${YEAR_GAUGE_WIDTH + Math.round(YEAR_LABEL_WIDTH / 2)}) rotate(-90)`
+
+      })
+      .text(d => {
+        let year = BEGIN_YEAR + d - 2000;
+        if (year < 10) {
+          return '0' + year
+        } else {
+          return year;
+        }
+      });
+
+  // axis.append('text')
+  //     .attr('class', 'axis__year__label')
+  //     .attr('dominant-baseline', 'middle')
+  //     .attr('text-anchor', 'end')
+  //     .attr('transform', `translate(0, ${axis.node().getBoundingClientRect().height + 3}) rotate(-90)`)
+  //     .text(BEGIN_YEAR);
+  //
+  // axis.append('text')
+  //     .attr('class', 'axis__year__label')
+  //     .attr('dominant-baseline', 'middle')
+  //     .attr('text-anchor', 'begin')
+  //     .attr('transform', `rotate(-90)`)
+  //     .text(NEXT_YEAR - 1);
+
+
+
+
+
 
   //let paths = svg
   //  .selectAll('path')
@@ -157,7 +235,16 @@ window.onload = function () {
 
 
 
-  let periods = svg
+
+
+
+
+
+
+
+
+
+  /*let periods = svg
     .selectAll('g.period')
     .data(source);
 
@@ -222,36 +309,8 @@ window.onload = function () {
     top += d.rects.title.height + PERIOD_VERTICAL_SPACING + PERIOD_VERTICAL_PADDING * 2;
   });
 
-  svg.attr('height', top);
+  svg.attr('height', top);*/
 
-
-
-  //let top = 100,
-  //    left = 100;
-  //
-  //text.each(function(d) {
-  //  let {width, height} = this.getBoundingClientRect();
-  //  d.rect = {width, height, top};
-  //
-  //  d3.select(this)
-  //    .attr('x', left + horizontalPadding)
-  //    .attr('y', top)
-  //    .attr('height', height);
-  //
-  //  top += verticalPadding * 2 + height + verticalSpacing;
-  //});
-  //
-  //let rect = svg
-  //  .selectAll('rect')
-  //  .data(source);
-  //
-  //rect.enter()
-  //  .append('rect')
-  //  .attr('x', left)
-  //  .attr('y', d => d.rect.top)
-  //  .attr('width', d => d.rect.width + horizontalPadding * 2)
-  //  .attr('height', d => d.rect.height + verticalPadding * 2)
-  //  .attr('class', 'backing-rect');
 
 
   // @formatter:on
