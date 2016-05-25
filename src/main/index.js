@@ -6,34 +6,44 @@ let source = [
     institution: 'Moscow Exchange',
     position: 'Senior Developer',
     address: 'Moscow, Bolshoy Kislovsky st. 13',
-    href: 'moex.com',
-    description: 'Currently working on development of rich web UI for the Exchange Information Fabric (prospective middle-cycle integration platform). UI provides means of visualisation and live monitoring of large amounts of data that is pushed from server at high frequency.'
+    href: 'http://moex.com',
+    description:
+      '<tspan x="0" dy="4ex">Currently working on development of rich web UI for the Exchange</tspan>' +
+      '<tspan x="0" dy="2.2ex">Information Fabric (prospective middle-cycle integration platform).</tspan>' +
+      '<tspan x="0" dy="2.2ex">UI provides means of visualisation and live monitoring of large amounts</tspan>' +
+      '<tspan x="0" dy="2.2ex">of data that is pushed from server at high frequency.</tspan>'
   },
   {
     institution: 'Sberbank CIB',
     position: 'Integration Solutions Developer',
     address: 'Moscow, Romanov st. 4',
-    href: 'sberbank-cib.ru',
-    description: '\u2460 Full-featured real-time monitoring system for ESB. SOA environment for low latency FIX-based intercommunication between front office and electronic trading platforms. Desktop client for e-FX'
+    href: 'http://sberbank-cib.ru',
+    description:
+      '<tspan x="0" dy="4ex">\u2460 Full-featured real-time monitoring system for ESB.</tspan>' +
+      '<tspan x="0" dy="3ex">\u2461 SOA environment for low latency FIX-based intercommunication</tspan>' +
+      '<tspan x="1.2em" dy="2.2ex">between front office and electronic trading platforms.</tspan>' +
+      '<tspan x="0" dy="3ex">\u2462 Desktop client for e-FX</tspan>'
   },
   {
     institution: 'Troika Dialog',
     position: 'Testing Expert',
     address: 'Moscow, Romanov st. 4',
-    href: 'troika.ru'
+    href: 'http://troika.ru'
   },
   {
     institution: 'Geophysical Centre of RAS',
     position: 'Ph.D. Student',
     address: 'Moscow, Molodezhnaya st. 3',
-    href: 'gcras.ru',
-    description: 'Geoinformatics Laboratory of Russian Academy of Sciences\nFuzzy logic analysis of multidimensional time series'
+    href: 'http://gcras.ru',
+    description:
+      '<tspan x="0" dy="4ex">Geoinformatics Laboratory of Russian Academy of Sciences</tspan>' +
+      '<tspan x="0" dy="2.2ex">Fuzzy logic analysis of multidimensional time series</tspan>'
   },
   {
-    institution: 'Exigen Services',
+    institution: 'Sun Microsystems',
     position: 'QA Engineer',
     address: 'St. Petersburg, Rentgena st. 5a',
-    href: 'exigenservices.ru'
+    href: 'http://exigenservices.ru'
   },
   {
     institution: 'Astra Software',
@@ -44,21 +54,26 @@ let source = [
     institution: 'Enkata Technologies',
     position: 'Test Engineer',
     address: 'St. Petersburg, Efimova Str. 4a, Suite 160',
-    href: 'enkata.com'
+    href: 'http://enkata.com'
   },
   {
     institution: 'State Polytechnic University',
     position: 'Master of System Analysis',
     address: 'St. Petersburg, Politekhnicheskaya st. 29',
-    href: 'spbstu.ru',
-    description: 'Faculty of Engineering Cybernetics / Dept. of System Analysis and Control. Diploma on quality analysis and control in strongly connected systems'
+    href: 'http://spbstu.ru',
+    description:
+      '<tspan x="0" dy="4ex">Faculty of Engineering Cybernetics / Dept. of System Analysis and Control</tspan>' +
+      '<tspan x="0" dy="2.2ex">Diploma on quality analysis and control in strongly connected systems</tspan>'
   },
   {
     institution: 'State Polytechnic University',
     position: 'Physics Bachelor',
     address: 'St. Petersburg, Politekhnicheskaya st. 29',
-    href: 'spbstu.ru',
-    description: 'Faculty of Physics and Mechanics / Dept. of Experimental Physics. Diploma on high-energy transport of electrons from alloyed superlattice to widen quantum well'
+    href: 'http://spbstu.ru',
+    description:
+      '<tspan x="0" dy="4ex">Faculty of Physics and Mechanics / Dept. of Experimental Physics</tspan>' +
+      '<tspan x="0" dy="2.2ex">Diploma on high-energy transport of electrons from alloyed</tspan>' +
+      '<tspan x="0" dy="2.2ex">superlattice to widen quantum well</tspan>'
   }
 ];
 
@@ -151,18 +166,18 @@ window.onload = function () {
 
   title.append('tspan')
     .attr('class', 'period__institution')
-    .text(d => d.institution);
+    .html(d => d.institution);
 
   title.append('tspan')
     .attr('dx', '.3em')
     .attr('class', 'period__position')
-    .text(d => d.position);
+    .html(d => d.position);
 
   title.append('tspan')
     .attr('x', 0)
     .attr('dy', '2.2ex')
     .attr('class', 'period__address')
-    .text(d => {
+    .html(d => {
       if (d.href) {
         return d.address + ' \u2022 ';
       } else {
@@ -172,7 +187,7 @@ window.onload = function () {
 
   title.append('tspan')
     .attr('class', 'period__ref')
-    .text(d => {
+    .html(d => {
       if (d.href) {
         let a = document.createElement('a');
         a.href = d.href;
@@ -184,7 +199,7 @@ window.onload = function () {
     .attr('x', 0)
     .attr('dy', '4ex')
     .attr('class', 'period__description')
-    .text(d => d.description);
+    .html(d => d.description);
 
   title.each(function(d) {
     d.rects.title = this.getBoundingClientRect();
