@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "package": "webpack --p",
-    "start": "webpack-dev-server --progress --d --content-base target/out/ --host 0.0.0.0 --port 8080"
+    "start": "webpack-dev-server --progress --d --content-base target/out/ --host 0.0.0.0 --port 8081"
   },
   "devDependencies": {
     "webpack": "1.12.9",

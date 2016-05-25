@@ -12,12 +12,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300,700">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Open+Sans+Condensed:300,700|Roboto+Condensed:300,400,700|Roboto:300,400,700&subset=latin,cyrillic" rel="stylesheet" type="text/css">
 
   {% for (var key in o.htmlWebpackPlugin.files.css) { %}
   <link type="text/css" href="{%=o.htmlWebpackPlugin.files.css[key] %}" rel="stylesheet"/>
   {% } %}
-  <title>Resume</title>
+  <title></title>
 </head>
 <body>
 <section id="app"></section>
