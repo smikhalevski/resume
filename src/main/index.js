@@ -1,6 +1,15 @@
 import d3 from 'd3';
 //import source from './source.json';
 
+
+
+const PERIOD_HORIZONTAL_PADDING = 20,
+      PERIOD_VERTICAL_PADDING = 20,
+      PERIOD_VERTICAL_SPACING = 10,
+      DESCRIPTION_FIRST_LINE_HEIGHT = '4ex',
+      PARAGRAPH_HEIGHT = '3ex',
+      LINE_HEIGHT = '2.5ex';
+
 let source = [
   {
     institution: 'Moscow Exchange',
@@ -8,10 +17,10 @@ let source = [
     address: 'Moscow, Bolshoy Kislovsky st. 13',
     href: 'http://moex.com',
     description:
-      '<tspan x="0" dy="4ex">Currently working on development of rich web UI for the Exchange</tspan>' +
-      '<tspan x="0" dy="2.2ex">Information Fabric (prospective middle-cycle integration platform).</tspan>' +
-      '<tspan x="0" dy="2.2ex">UI provides means of visualisation and live monitoring of large amounts</tspan>' +
-      '<tspan x="0" dy="2.2ex">of data that is pushed from server at high frequency.</tspan>'
+      `<tspan x="0" dy="${DESCRIPTION_FIRST_LINE_HEIGHT}">Currently working on development of rich web UI for the Exchange</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">Information Fabric (prospective middle-cycle integration platform).</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">UI provides means of visualisation and live monitoring of large amounts</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">of data that is pushed from server at high frequency.</tspan>`
   },
   {
     institution: 'Sberbank CIB',
@@ -19,10 +28,10 @@ let source = [
     address: 'Moscow, Romanov st. 4',
     href: 'http://sberbank-cib.ru',
     description:
-      '<tspan x="0" dy="4ex">\u2460 Full-featured real-time monitoring system for ESB.</tspan>' +
-      '<tspan x="0" dy="3ex">\u2461 SOA environment for low latency FIX-based intercommunication</tspan>' +
-      '<tspan x="1.2em" dy="2.2ex">between front office and electronic trading platforms.</tspan>' +
-      '<tspan x="0" dy="3ex">\u2462 Desktop client for e-FX</tspan>'
+      `<tspan x="0" dy="${DESCRIPTION_FIRST_LINE_HEIGHT}">\u2460 Full-featured real-time monitoring system for ESB</tspan>` +
+      `<tspan x="0" dy="${PARAGRAPH_HEIGHT}">\u2461 SOA environment for low latency FIX-based intercommunication</tspan>` +
+      `<tspan x="1.2em" dy="${LINE_HEIGHT}">between front office and electronic trading platforms</tspan>` +
+      `<tspan x="0" dy="${PARAGRAPH_HEIGHT}">\u2462 Desktop client for e-FX</tspan>`
   },
   {
     institution: 'Troika Dialog',
@@ -36,8 +45,8 @@ let source = [
     address: 'Moscow, Molodezhnaya st. 3',
     href: 'http://gcras.ru',
     description:
-      '<tspan x="0" dy="4ex">Geoinformatics Laboratory of Russian Academy of Sciences</tspan>' +
-      '<tspan x="0" dy="2.2ex">Fuzzy logic analysis of multidimensional time series</tspan>'
+      `<tspan x="0" dy="${DESCRIPTION_FIRST_LINE_HEIGHT}">Geoinformatics Laboratory of Russian Academy of Sciences</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">Fuzzy logic analysis of multidimensional time series</tspan>`
   },
   {
     institution: 'Sun Microsystems',
@@ -62,8 +71,8 @@ let source = [
     address: 'St. Petersburg, Politekhnicheskaya st. 29',
     href: 'http://spbstu.ru',
     description:
-      '<tspan x="0" dy="4ex">Faculty of Engineering Cybernetics / Dept. of System Analysis and Control</tspan>' +
-      '<tspan x="0" dy="2.2ex">Diploma on quality analysis and control in strongly connected systems</tspan>'
+      `<tspan x="0" dy="${DESCRIPTION_FIRST_LINE_HEIGHT}">Faculty of Engineering Cybernetics / Dept. of System Analysis and Control</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">Diploma on quality analysis and control in strongly connected systems</tspan>`
   },
   {
     institution: 'State Polytechnic University',
@@ -71,9 +80,9 @@ let source = [
     address: 'St. Petersburg, Politekhnicheskaya st. 29',
     href: 'http://spbstu.ru',
     description:
-      '<tspan x="0" dy="4ex">Faculty of Physics and Mechanics / Dept. of Experimental Physics</tspan>' +
-      '<tspan x="0" dy="2.2ex">Diploma on high-energy transport of electrons from alloyed</tspan>' +
-      '<tspan x="0" dy="2.2ex">superlattice to widen quantum well</tspan>'
+      `<tspan x="0" dy="${DESCRIPTION_FIRST_LINE_HEIGHT}">Faculty of Physics and Mechanics / Dept. of Experimental Physics</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">Diploma on high-energy transport of electrons from alloyed</tspan>` +
+      `<tspan x="0" dy="${LINE_HEIGHT}">superlattice to widen quantum well</tspan>`
   }
 ];
 
@@ -123,8 +132,8 @@ window.onload = function () {
 
   let svg = d3.select('#app')
     .append('svg')
-    .attr('width', 5000)
-    .attr('height', 5000);
+    .attr('width', 700)
+    .attr('height', 0);
 
   //let paths = svg
   //  .selectAll('path')
@@ -147,10 +156,6 @@ window.onload = function () {
 
 
 
-
-  const PERIOD_HORIZONTAL_PADDING = 20,
-        PERIOD_VERTICAL_PADDING = 20,
-        PERIOD_VERTICAL_SPACING = 10;
 
   let periods = svg
     .selectAll('g.period')
@@ -175,7 +180,7 @@ window.onload = function () {
 
   title.append('tspan')
     .attr('x', 0)
-    .attr('dy', '2.2ex')
+    .attr('dy', LINE_HEIGHT)
     .attr('class', 'period__address')
     .html(d => {
       if (d.href) {
@@ -197,7 +202,7 @@ window.onload = function () {
 
   title.append('tspan')
     .attr('x', 0)
-    .attr('dy', '4ex')
+    .attr('dy', DESCRIPTION_FIRST_LINE_HEIGHT)
     .attr('class', 'period__description')
     .html(d => d.description);
 
@@ -216,6 +221,8 @@ window.onload = function () {
     this.setAttribute('transform', `translate(0, ${top})`);
     top += d.rects.title.height + PERIOD_VERTICAL_SPACING + PERIOD_VERTICAL_PADDING * 2;
   });
+
+  svg.attr('height', top);
 
 
 
